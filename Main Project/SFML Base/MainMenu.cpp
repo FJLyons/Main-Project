@@ -35,7 +35,7 @@ void MainMenu::init()
 	text[3].setString("Instructions");
 	text[4].setString("Quit");
 
-	for (int i = 0; i < MAX_INDEX; i++)
+	for (int i = 0; i < MENU_INDEX; i++)
 	{
 		text[i].setFont(font);
 		text[i].setPosition((screenSize.x / 2) - text[i].getLocalBounds().width / 3.5f, (screenSize.y / 2) + (48.0f * i) - text[i].getLocalBounds().height / 2.0f);
@@ -55,44 +55,74 @@ void MainMenu::draw(sf::RenderWindow &window)
 {
 	window.draw(logoSprite);
 
-	for (int i = 0; i < MAX_INDEX; i++)
+	for (int i = 0; i < MENU_INDEX; i++)
 	{
 		window.draw(text[i]);
 	}
 }
 
-void MainMenu::swapScreen(sf::RenderWindow &window, OptionsLoader *options)
+void MainMenu::input(sf::Event Event)
 {
-	if (getPressedItem() == 0) {
-		options->setCurrentScreen(options->GAME);
-		std::cout << "New Game" << std::endl;
+	if (inputManager->KeyPressed(sf::Keyboard::BackSpace)) 
+	{ 
+		std::cout << "Back Space" << std::endl; 
+		goToScene(myGlobalOptions->SPLASH); 
 	}
 
-	else if (getPressedItem() == 1) {
-		options->setCurrentScreen(options->LOAD);
-		std::cout << "Load Game" << std::endl;
-	}
-
-	else if (getPressedItem() == 2) {
-		options->setCurrentScreen(options->OPTIONS);
-		std::cout << "Options" << std::endl;
-	}
-
-	else if (getPressedItem() == 3) {
-		options->setCurrentScreen(options->INSTRUCTIONS);
-		std::cout << "Instrctions" << std::endl;
-	}
-
-	if (getPressedItem() == 4)
+	if (inputManager->KeyPressed(sf::Keyboard::Return))
 	{
-		std::cout << "Quit" << std::endl;
-		window.close();
+		swapScreen();
+	}
+
+	if (inputManager->KeyPressed(sf::Keyboard::Up))
+	{
+		std::cout << "Up" << std::endl;
+		moveUp();
+	}
+
+	if (inputManager->KeyPressed(sf::Keyboard::Down))
+	{
+		std::cout << "Down" << std::endl;
+		moveDown();
 	}
 }
 
-void MainMenu::backScreen(OptionsLoader *options, int screen)
+void MainMenu::swapScreen()
 {
-	options->setCurrentScreen(screen);
+	if (getPressedItem() == GAME) 
+	{
+		myGlobalOptions->setCurrentScene(myGlobalOptions->GAME);
+		std::cout << "New Game" << std::endl;
+	}
+
+	else if (getPressedItem() == LOAD) 
+	{
+		myGlobalOptions->setCurrentScene(myGlobalOptions->LOAD);
+		std::cout << "Load Game" << std::endl;
+	}
+
+	else if (getPressedItem() == OPTIONS) 
+	{
+		myGlobalOptions->setCurrentScene(myGlobalOptions->OPTIONS);
+		std::cout << "Options Menu" << std::endl;
+	}
+
+	else if (getPressedItem() == INSTRUCTIONS) 
+	{
+		myGlobalOptions->setCurrentScene(myGlobalOptions->INSTRUCTIONS);
+		std::cout << "Instrctions Screen" << std::endl;
+	}
+
+	if (getPressedItem() == QUIT)
+	{
+		std::cout << "Quit" << std::endl;
+		myGlobalOptions->windowReference->close();
+	}
+}
+
+void MainMenu::goToScene(int scene)
+{
+	GlobalVariables::getInstance()->setCurrentScene(scene);
 }
 
 void MainMenu::moveUp()
@@ -103,22 +133,24 @@ void MainMenu::moveUp()
 		selectedItemIndex--;
 		text[selectedItemIndex].setColor(sf::Color::Red);
 	}
+	// Jump to bottom
 	else
 	{
 		text[selectedItemIndex].setColor(sf::Color::White);
-		selectedItemIndex = MAX_INDEX - 1;
+		selectedItemIndex = MENU_INDEX - 1;
 		text[selectedItemIndex].setColor(sf::Color::Red);
 	}
 }
 
 void MainMenu::moveDown()
 {
-	if (selectedItemIndex + 1 < MAX_INDEX)
+	if (selectedItemIndex + 1 < MENU_INDEX)
 	{
 		text[selectedItemIndex].setColor(sf::Color::White);
 		selectedItemIndex++;
 		text[selectedItemIndex].setColor(sf::Color::Red);
 	}
+	// Jump to top
 	else
 	{
 		text[selectedItemIndex].setColor(sf::Color::White);
@@ -129,5 +161,6 @@ void MainMenu::moveDown()
 
 int MainMenu::getPressedItem()
 {
+	// Index in menu
 	return selectedItemIndex;
 }

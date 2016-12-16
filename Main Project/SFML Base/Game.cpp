@@ -1,8 +1,7 @@
 #include "Game.h"
 
-Game::Game(InputManager* im)
+Game::Game()
 {
-	inputManager = im;
 	init();
 }
 
@@ -21,7 +20,7 @@ void Game::init()
 
 void Game::update()
 {
-
+	int i = 0;
 }
 
 void Game::draw(sf::RenderWindow &window)
@@ -31,22 +30,31 @@ void Game::draw(sf::RenderWindow &window)
 
 void Game::input(sf::Event Event)
 {
-	inputManager->update(Event);
+	if (Event.type == sf::Event::KeyPressed)
+	{ 
+		std::cout << Event.key.code << std::endl; 
+	}
+
+	if (inputManager->KeyPressed(sf::Keyboard::BackSpace))
+	{
+		std::cout << "Back Space" << std::endl;
+		goToScene(myGlobalOptions->MAINMENU);
+	}
+
 	controller(Event);
 }
 
-void Game::backScreen(OptionsLoader *options, int screen)
+void Game::goToScene(int scene)
 {
-	options->setCurrentScreen(screen);
+	myGlobalOptions->setCurrentScene(scene);
 }
 
 void Game::controller(sf::Event Event)
 {
-	if (Event.type == sf::Event::KeyPressed)
+	if (inputManager->KeyPressed(sf::Keyboard::A))
 	{
-		std::cout << Event.key.code << std::endl;
+		std::cout << "A" << std::endl;
 	}
-	if (inputManager->KeyPressed(sf::Keyboard::A)) { std::cout << "A" << std::endl; }
 }
 
 

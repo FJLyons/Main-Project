@@ -11,7 +11,7 @@
 using namespace std;
 
 // Custom Classes
-#include "OptionsLoader.h"
+#include "GlobalVariables.h"
 #include "InputManager.h"
 
 #include "SplashScreen.h"
@@ -33,7 +33,7 @@ public:
 	void draw(sf::RenderWindow &window);
 	void input(sf::RenderWindow &window, sf::Event &Event);
 
-	OptionsLoader* optionsLoader;
+	GlobalVariables* myGlobalOptions;
 	InputManager* inputManager;
 
 	SplashScreen* splashScreen;
