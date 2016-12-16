@@ -40,6 +40,5 @@ public:
 
 private:
 
-	int currentScreen;
+	int currentScene;
 };
-

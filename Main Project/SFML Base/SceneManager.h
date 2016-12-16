@@ -31,7 +31,7 @@ public:
 	void init();
 	void update();
 	void draw(sf::RenderWindow &window);
-	void input(sf::RenderWindow &window, sf::Event &Event);
+	void input(sf::Event &Event);
 
 	GlobalVariables* myGlobalOptions;
 	InputManager* inputManager;
@@ -45,7 +45,5 @@ public:
 
 private:
 	sf::Vector2f screenSize = sf::Vector2f(1920, 1080);
-	void swapScenes(sf::RenderWindow &window, sf::Event &Event);
-
 };
 

@@ -25,7 +25,7 @@ GlobalVariables * GlobalVariables::getInstance()
 
 void GlobalVariables::init()
 {
-	currentScreen = GameStates::SPLASH;
+	currentScene = GameStates::SPLASH;
 }
 
 void GlobalVariables::update()
@@ -38,5 +38,5 @@ void GlobalVariables::draw(sf::RenderWindow &window)
 
 }
 
-int GlobalVariables::getCurrentScene(){ return currentScreen; }
-void GlobalVariables::setCurrentScene(int current){ currentScreen = current; }
+int GlobalVariables::getCurrentScene(){ return currentScene; }
+void GlobalVariables::setCurrentScene(int current){ currentScene = current; }

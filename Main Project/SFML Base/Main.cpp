@@ -47,7 +47,6 @@ int main()
 	srand(time(0));
 
 	// Get Global Variables
-	sceneManager = new SceneManager();
 	myGlobalOptions = GlobalVariables::getInstance();
 
 	// Create the main window 
@@ -64,6 +63,7 @@ int main()
 	window.setFramerateLimit(60);
 
 	// Classes
+	sceneManager = new SceneManager();
 
 	// Start game loop 
 	while (window.isOpen())
@@ -86,7 +86,7 @@ int main()
 			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->OPTIONS) { sceneManager->optionsMenu->input(Event); }
 			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->INSTRUCTIONS) { sceneManager->instructions->input(Event); }
 			else
-				sceneManager->input(window, Event);
+				sceneManager->input(Event);
 		}
 
 		//prepare frame
