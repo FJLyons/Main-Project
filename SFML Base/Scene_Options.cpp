@@ -2,14 +2,14 @@
 
 OptionsMenu::OptionsMenu()
 {
-	init();
+	Init();
 }
 
 OptionsMenu::~OptionsMenu()
 {
 }
 
-void OptionsMenu::init()
+void OptionsMenu::Init()
 {
 	//Art
 	scaleFactor = sf::Vector2f((1280.0f / 1920.0f), (720.0f / 1080.0f));
@@ -41,7 +41,7 @@ void OptionsMenu::init()
 	text[0].setColor(sf::Color::Red);
 }
 
-void OptionsMenu::update()
+void OptionsMenu::Update()
 {
 
 }
@@ -51,7 +51,7 @@ void OptionsMenu::input(sf::Event Event)
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace))
 	{
 		std::cout << "Back Space" << std::endl;
-		myGlobalOptions->setCurrentScene(myGlobalOptions->MAINMENU);
+		GV->setCurrentScene(GV->MAINMENU);
 	}
 
 	if (inputManager->KeyPressed(sf::Keyboard::Return))
@@ -72,7 +72,7 @@ void OptionsMenu::input(sf::Event Event)
 	}
 }
 
-void OptionsMenu::draw(sf::RenderWindow &window)
+void OptionsMenu::Draw(sf::RenderWindow &window)
 {
 	window.draw(logoSprite);
 

@@ -3,7 +3,7 @@
 
 MainMenu::MainMenu()
 {
-	init();
+	Init();
 }
 
 
@@ -11,7 +11,7 @@ MainMenu::~MainMenu()
 {
 }
 
-void MainMenu::init()
+void MainMenu::Init()
 {
 	//Art
 	scaleFactor = sf::Vector2f(1, 1);
@@ -46,12 +46,12 @@ void MainMenu::init()
 	text[0].setColor(sf::Color::Red);
 }
 
-void MainMenu::update()
+void MainMenu::Update()
 {
 
 }
 
-void MainMenu::draw(sf::RenderWindow &window)
+void MainMenu::Draw(sf::RenderWindow &window)
 {
 	window.draw(logoSprite);
 
@@ -66,7 +66,7 @@ void MainMenu::input(sf::Event Event)
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace)) 
 	{ 
 		std::cout << "Back Space" << std::endl;
-		myGlobalOptions->setCurrentScene(myGlobalOptions->SPLASH);
+		GV->setCurrentScene(GV->SPLASH);
 	}
 
 	if (inputManager->KeyPressed(sf::Keyboard::Return))
@@ -91,32 +91,32 @@ void MainMenu::swapScreen()
 {
 	if (getPressedItem() == GAME) 
 	{
-		myGlobalOptions->setCurrentScene(myGlobalOptions->GAME);
+		GV->setCurrentScene(GV->GAME);
 		std::cout << "New Game" << std::endl;
 	}
 
 	else if (getPressedItem() == LOAD) 
 	{
-		myGlobalOptions->setCurrentScene(myGlobalOptions->LOAD);
+		GV->setCurrentScene(GV->LOAD);
 		std::cout << "Load Game" << std::endl;
 	}
 
 	else if (getPressedItem() == OPTIONS) 
 	{
-		myGlobalOptions->setCurrentScene(myGlobalOptions->OPTIONS);
+		GV->setCurrentScene(GV->OPTIONS);
 		std::cout << "Options Menu" << std::endl;
 	}
 
 	else if (getPressedItem() == INSTRUCTIONS) 
 	{
-		myGlobalOptions->setCurrentScene(myGlobalOptions->INSTRUCTIONS);
+		GV->setCurrentScene(GV->INSTRUCTIONS);
 		std::cout << "Instrctions Screen" << std::endl;
 	}
 
 	if (getPressedItem() == QUIT)
 	{
 		std::cout << "Quit" << std::endl;
-		myGlobalOptions->windowReference->close();
+		GV->windowReference->close();
 	}
 }
 

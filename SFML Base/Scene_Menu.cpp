@@ -3,7 +3,7 @@
 
 SplashScreen::SplashScreen()
 {
-	init();
+	Init();
 }
 
 
@@ -11,7 +11,7 @@ SplashScreen::~SplashScreen()
 {
 }
 
-void SplashScreen::init()
+void SplashScreen::Init()
 {
 	// Art
 	scaleFactor = sf::Vector2f(1, 1);
@@ -44,12 +44,12 @@ void SplashScreen::init()
 	fading = false;
 }
 
-void SplashScreen::update()
+void SplashScreen::Update()
 {
 	fade(); // Fade in image
 }
 
-void SplashScreen::draw(sf::RenderWindow &window)
+void SplashScreen::Draw(sf::RenderWindow &window)
 {
 	window.draw(logoSprite);
 	window.draw(pressAnyText);
@@ -60,7 +60,7 @@ void SplashScreen::input(sf::Event Event)
 	if (Event.type == sf::Event::KeyPressed)
 	{
 		std::cout << Event.key.code << std::endl;
-		myGlobalOptions->setCurrentScene(myGlobalOptions->MAINMENU);
+		GV->setCurrentScene(GV->MAINMENU);
 	}
 }
 

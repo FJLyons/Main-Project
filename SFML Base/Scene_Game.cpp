@@ -2,14 +2,14 @@
 
 Game::Game()
 {
-	init();
+	Init();
 }
 
 Game::~Game()
 {
 }
 
-void Game::init()
+void Game::Init()
 {
 	font.loadFromFile("content\\fonts\\kenvector_future.TTF");
 	text.setFont(font);
@@ -18,14 +18,16 @@ void Game::init()
 	text.setCharacterSize(18);
 }
 
-void Game::update()
+void Game::Update()
 {
 	int i = 0;
 }
 
-void Game::draw(sf::RenderWindow &window)
+void Game::Draw(sf::RenderWindow &window)
 {
-	window.draw(text);
+	map->Draw(window);
+	castle->Draw(window);
+	leftAgent->Draw(window);
 }
 
 void Game::input(sf::Event Event)
@@ -38,15 +40,10 @@ void Game::input(sf::Event Event)
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace))
 	{
 		std::cout << "Back Space" << std::endl;
-		goToScene(myGlobalOptions->MAINMENU);
+		GV->setCurrentScene(GV->MAINMENU);
 	}
 
 	controller(Event);
-}
-
-void Game::goToScene(int scene)
-{
-	myGlobalOptions->setCurrentScene(scene);
 }
 
 void Game::controller(sf::Event Event)

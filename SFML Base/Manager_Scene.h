@@ -25,15 +25,15 @@ using namespace std;
 class SceneManager
 {
 private:
-	GlobalVariables* myGlobalOptions = GlobalVariables::getInstance();
+	GlobalVariables* GV = GlobalVariables::getInstance();
 	InputManager* inputManager = InputManager::getInstance();
 public:
 	SceneManager();
 	~SceneManager();
 
-	void init();
-	void update();
-	void draw(sf::RenderWindow &window);
+	void Init();
+	void Update();
+	void Draw(sf::RenderWindow &window);
 
 	SplashScreen* splashScreen;
 	MainMenu* mainMenu;
@@ -43,6 +43,6 @@ public:
 	InstructionsScreen* instructions;
 
 private:
-	sf::Vector2f screenSize = myGlobalOptions->screenSize;
+	sf::Vector2f screenSize = GV->screenSize;
 };
 

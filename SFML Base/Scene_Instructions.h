@@ -13,20 +13,20 @@
 class InstructionsScreen
 {
 private:
-	GlobalVariables* myGlobalOptions = GlobalVariables::getInstance();
+	GlobalVariables* GV = GlobalVariables::getInstance();
 	InputManager* inputManager = InputManager::getInstance();
 
 public:
 	InstructionsScreen();
 	~InstructionsScreen(); 
 	
-	void init();
-	void update();
-	void draw(sf::RenderWindow &window);
+	void Init();
+	void Update();
+	void Draw(sf::RenderWindow &window);
 	void input(sf::Event Event);
 
 private:
-	sf::Vector2f screenSize = myGlobalOptions->screenSize;
+	sf::Vector2f screenSize = GV->screenSize;
 
 	void goToScene(int screen);
 

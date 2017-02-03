@@ -12,25 +12,35 @@
 #include "Variables_Global.h"
 #include "Manager_Input.h"
 
+#include "Map.h"
+#include "Structure.h"
+#include "Unit.h"
+
 class Game
 {
 private:
-	GlobalVariables* myGlobalOptions = GlobalVariables::getInstance();
+	GlobalVariables* GV = GlobalVariables::getInstance();
 	InputManager* inputManager = InputManager::getInstance();
 
 public:
 	Game();
 	~Game();
 
-	void init();
-	void update();
-	void draw(sf::RenderWindow &window);
+	void Init();
+	void Update();
+	void Draw(sf::RenderWindow &window);
 	void input(sf::Event Event);
 
 private:
-	sf::Vector2f screenSize = myGlobalOptions->screenSize;
+	Map* map = new Map();
 
-	void goToScene(int screen);
+	Structure* castle = new Structure();
+
+	Unit* leftAgent = new Unit();
+	Unit* RightAgent = new Unit();
+
+private:
+	sf::Vector2f screenSize = GV->screenSize;
 
 	void controller(sf::Event Event);
 

@@ -21,7 +21,7 @@ InputManager * InputManager::getInstance()
 }
 
 //Gnereate events
-void InputManager::update(sf::Event evn)
+void InputManager::Update(sf::Event evn)
 {
 	Event = evn;
 }

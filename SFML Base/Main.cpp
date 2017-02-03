@@ -33,7 +33,7 @@ using namespace std;
 #include "Manager_Input.h"
 
 SceneManager *sceneManager;
-GlobalVariables* myGlobalOptions;
+GlobalVariables* GV;
 
 ///Entrypoint of application 
 int main()
@@ -42,16 +42,16 @@ int main()
 	srand(time(0));
 
 	// Get Global Variables
-	myGlobalOptions = GlobalVariables::getInstance();
+	GV = GlobalVariables::getInstance();
 
 	// Create the main window 
 	sf::ContextSettings settings;
-	settings.antialiasingLevel = 4;
+	settings.antialiasingLevel = 0;
 
-	sf::Vector2f screenSize = myGlobalOptions->screenSize;
+	sf::Vector2f screenSize = GV->screenSize;
 	sf::RenderWindow window(sf::VideoMode(screenSize.x, screenSize.y), "GOAP vs. MCTS", sf::Style::Default, settings);
 
-	myGlobalOptions->windowReference = &window;
+	GV->windowReference = &window;
 
 	// Set Frame Rate
 	window.setVerticalSyncEnabled(true);
@@ -67,27 +67,27 @@ int main()
 		sf::Event Event;
 		while (window.pollEvent(Event))
 		{
-			InputManager::getInstance()->update(Event);
+			InputManager::getInstance()->Update(Event);
 
 			// Close Window
 			if (Event.type == Event.Closed) { window.close(); }
 			if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape) { window.close(); }
 
 			// Update input
-			if (myGlobalOptions->getCurrentScene() == myGlobalOptions->SPLASH) { sceneManager->splashScreen->input(Event); }
-			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->MAINMENU) { sceneManager->mainMenu->input(Event); }
-			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->GAME) { sceneManager->game->input(Event); }
-			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->LOAD) { sceneManager->load->input(Event); }
-			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->OPTIONS) { sceneManager->optionsMenu->input(Event); }
-			else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->INSTRUCTIONS) { sceneManager->instructions->input(Event); }
+			if (GV->getCurrentScene() == GV->SPLASH) { sceneManager->splashScreen->input(Event); }
+			else if (GV->getCurrentScene() == GV->MAINMENU) { sceneManager->mainMenu->input(Event); }
+			else if (GV->getCurrentScene() == GV->GAME) { sceneManager->game->input(Event); }
+			else if (GV->getCurrentScene() == GV->LOAD) { sceneManager->load->input(Event); }
+			else if (GV->getCurrentScene() == GV->OPTIONS) { sceneManager->optionsMenu->input(Event); }
+			else if (GV->getCurrentScene() == GV->INSTRUCTIONS) { sceneManager->instructions->input(Event); }
 		}
 
 		//prepare frame
 		window.clear();
 
 		// Update and Draw
-		sceneManager->update();
-		sceneManager->draw(window);
+		sceneManager->Update();
+		sceneManager->Draw(window);
 
 		// Finally, display rendered frame on screen 
 		window.display();

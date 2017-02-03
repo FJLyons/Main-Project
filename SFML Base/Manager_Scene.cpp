@@ -2,16 +2,16 @@
 
 SceneManager::SceneManager()
 {
-	init();
+	Init();
 }
 
 SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::init()
+void SceneManager::Init()
 {
-	myGlobalOptions = GlobalVariables::getInstance();
+	GV = GlobalVariables::getInstance();
 	inputManager = new InputManager();
 
 	splashScreen = new SplashScreen();
@@ -22,22 +22,22 @@ void SceneManager::init()
 	instructions = new InstructionsScreen();
 }
 
-void SceneManager::update()
+void SceneManager::Update()
 {
-	if (myGlobalOptions->getCurrentScene() == myGlobalOptions->SPLASH){ splashScreen->update(); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->MAINMENU){ mainMenu->update(); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->GAME){ game->update(); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->LOAD) { load->update(); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->OPTIONS){ optionsMenu->update(); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->INSTRUCTIONS) { instructions->update(); }
+	if (GV->getCurrentScene() == GV->SPLASH){ splashScreen->Update(); }
+	else if (GV->getCurrentScene() == GV->MAINMENU){ mainMenu->Update(); }
+	else if (GV->getCurrentScene() == GV->GAME){ game->Update(); }
+	else if (GV->getCurrentScene() == GV->LOAD) { load->Update(); }
+	else if (GV->getCurrentScene() == GV->OPTIONS){ optionsMenu->Update(); }
+	else if (GV->getCurrentScene() == GV->INSTRUCTIONS) { instructions->Update(); }
 }
 
-void SceneManager::draw(sf::RenderWindow &window)
+void SceneManager::Draw(sf::RenderWindow &window)
 {
-	if (myGlobalOptions->getCurrentScene() == myGlobalOptions->SPLASH){ splashScreen->draw(window); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->MAINMENU){ mainMenu->draw(window); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->GAME){ game->draw(window); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->LOAD) { load->draw(window); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->OPTIONS){ optionsMenu->draw(window); }
-	else if (myGlobalOptions->getCurrentScene() == myGlobalOptions->INSTRUCTIONS) { instructions->draw(window); }
+	if (GV->getCurrentScene() == GV->SPLASH){ splashScreen->Draw(window); }
+	else if (GV->getCurrentScene() == GV->MAINMENU){ mainMenu->Draw(window); }
+	else if (GV->getCurrentScene() == GV->GAME){ game->Draw(window); }
+	else if (GV->getCurrentScene() == GV->LOAD) { load->Draw(window); }
+	else if (GV->getCurrentScene() == GV->OPTIONS){ optionsMenu->Draw(window); }
+	else if (GV->getCurrentScene() == GV->INSTRUCTIONS) { instructions->Draw(window); }
 }

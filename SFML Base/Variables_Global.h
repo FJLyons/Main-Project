@@ -16,9 +16,9 @@ public:
 	GlobalVariables();
 	~GlobalVariables();
 
-	void init();
-	void update();
-	void draw(sf::RenderWindow &window);
+	void Init();
+	void Update();
+	void Draw(sf::RenderWindow &window);
 
 	int getCurrentScene();
 	void setCurrentScene(int current);
@@ -36,9 +36,13 @@ public:
 	};
 
 	sf::Vector2f screenSize = sf::Vector2f(1920, 1080);
+	sf::Vector2f screenSizeHalf = sf::Vector2f(screenSize.x / 2, screenSize.y / 2);
 	sf::RenderWindow* windowReference;
 
 private:
-
 	int currentScene;
+
+public:
+	sf::Color Grey = sf::Color(125, 125, 125, 255);
+	sf::Color DarkGreen = sf::Color(0, 125, 0, 255);
 };

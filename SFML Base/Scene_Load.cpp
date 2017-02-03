@@ -4,7 +4,7 @@
 
 LoadScreen::LoadScreen()
 {
-	init();
+	Init();
 }
 
 
@@ -12,7 +12,7 @@ LoadScreen::~LoadScreen()
 {
 }
 
-void LoadScreen::init()
+void LoadScreen::Init()
 {
 	font.loadFromFile("content\\fonts\\kenvector_future.TTF");
 	text.setFont(font);
@@ -21,12 +21,12 @@ void LoadScreen::init()
 	text.setCharacterSize(18);
 }
 
-void LoadScreen::update()
+void LoadScreen::Update()
 {
 
 }
 
-void LoadScreen::draw(sf::RenderWindow &window)
+void LoadScreen::Draw(sf::RenderWindow &window)
 {
 	window.draw(text);
 }
@@ -36,6 +36,6 @@ void LoadScreen::input(sf::Event Event)
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace))
 	{
 		std::cout << "Back Space" << std::endl;
-		myGlobalOptions->setCurrentScene(myGlobalOptions->MAINMENU);
+		GV->setCurrentScene(GV->MAINMENU);
 	}
 }

@@ -5,7 +5,7 @@ GlobalVariables* GlobalVariables::globalVariablesInstance = nullptr;
 
 GlobalVariables::GlobalVariables()
 {
-	init();
+	Init();
 }
 
 
@@ -23,17 +23,17 @@ GlobalVariables * GlobalVariables::getInstance()
 }
 
 
-void GlobalVariables::init()
+void GlobalVariables::Init()
 {
 	currentScene = GameStates::SPLASH;
 }
 
-void GlobalVariables::update()
+void GlobalVariables::Update()
 {
 
 }
 
-void GlobalVariables::draw(sf::RenderWindow &window)
+void GlobalVariables::Draw(sf::RenderWindow &window)
 {
 
 }

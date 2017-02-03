@@ -4,7 +4,7 @@
 
 InstructionsScreen::InstructionsScreen()
 {
-	init();
+	Init();
 }
 
 
@@ -12,7 +12,7 @@ InstructionsScreen::~InstructionsScreen()
 {
 }
 
-void InstructionsScreen::init()
+void InstructionsScreen::Init()
 {
 	font.loadFromFile("content\\fonts\\kenvector_future.TTF");
 	text.setFont(font);
@@ -21,12 +21,12 @@ void InstructionsScreen::init()
 	text.setCharacterSize(18);
 }
 
-void InstructionsScreen::update()
+void InstructionsScreen::Update()
 {
 
 }
 
-void InstructionsScreen::draw(sf::RenderWindow &window)
+void InstructionsScreen::Draw(sf::RenderWindow &window)
 {
 	window.draw(text);
 }
@@ -36,11 +36,11 @@ void InstructionsScreen::input(sf::Event Event)
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace))
 	{
 		std::cout << "Back Space" << std::endl;
-		goToScene(myGlobalOptions->MAINMENU);
+		goToScene(GV->MAINMENU);
 	}
 }
 
 void InstructionsScreen::goToScene(int scene)
 {
-	myGlobalOptions->setCurrentScene(scene);
+	GV->setCurrentScene(scene);
 }
