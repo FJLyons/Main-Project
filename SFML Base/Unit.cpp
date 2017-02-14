@@ -19,8 +19,8 @@ void Unit::Init()
 	m_circleShape.setRadius(m_radius);
 	m_circleShape.setOrigin(sf::Vector2f(m_radius / 2, m_radius / 2));
 	m_circleShape.setPosition(sf::Vector2f(100, 540));
-	m_circleShape.setFillColor(sf::Color::Yellow);
-	m_circleShape.setOutlineColor(sf::Color::Red);
+	m_circleShape.setFillColor(sf::Color::Blue);
+	m_circleShape.setOutlineColor(sf::Color::White);
 	m_circleShape.setOutlineThickness(m_radius / 10.0f);
 }
 

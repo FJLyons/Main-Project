@@ -45,4 +45,12 @@ private:
 public:
 	sf::Color Grey = sf::Color(125, 125, 125, 255);
 	sf::Color DarkGreen = sf::Color(0, 125, 0, 255);
+
+
+public:
+	enum GOAPStates {
+		Castle_Sighted,
+		Castle_Dead,
+		Castle_in_Range
+	};
 };

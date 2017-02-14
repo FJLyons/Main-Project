@@ -155,9 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action.cpp" />
-    <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="GOAPPlanner.cpp" />
+    <ClCompile Include="GOAP_Action.cpp" />
+    <ClCompile Include="GOAP_Node.cpp" />
+    <ClCompile Include="GOAP_Planner.cpp" />
+    <ClCompile Include="GOAP_WorldState.cpp" />
     <ClCompile Include="Manager_Input.cpp" />
     <ClCompile Include="Manager_Scene.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -166,7 +167,6 @@
     <ClCompile Include="Scene_Load.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scene_Main_Menu.cpp" />
-    <ClCompile Include="State.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Variables_Global.cpp" />
@@ -174,9 +174,10 @@
     <ClCompile Include="Scene_Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
-    <ClInclude Include="Agent.h" />
-    <ClInclude Include="GOAPPlanner.h" />
+    <ClInclude Include="GOAP_Action.h" />
+    <ClInclude Include="GOAP_Node.h" />
+    <ClInclude Include="GOAP_Planner.h" />
+    <ClInclude Include="GOAP_WorldState.h" />
     <ClInclude Include="Manager_Input.h" />
     <ClInclude Include="Manager_Scene.h" />
     <ClInclude Include="Map.h" />
@@ -185,7 +186,6 @@
     <ClInclude Include="Scene_Load.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Scene_Main_Menu.h" />
-    <ClInclude Include="State.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="Variables_Global.h" />

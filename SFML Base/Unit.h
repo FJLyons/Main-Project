@@ -7,12 +7,18 @@
 #include <vector>
 #include <queue>
 
+#include "Variables_Global.h"
+
 using namespace std;
 
-#include "Action.h"
+#include "GOAP_Action.h"
+
 
 class Unit
 {
+private:
+	GlobalVariables* GV = GlobalVariables::getInstance();
+
 public:
 	Unit();
 	~Unit();
@@ -20,8 +26,6 @@ public:
 	void Init();
 	void Update();
 	void Draw(sf::RenderWindow &window);
-
-	bool Move(Action* act);
 
 private:
 	float m_value_attack;
@@ -40,14 +44,7 @@ private:
 	sf::CircleShape m_circleShape;
 	float m_radius;
 
-public:
-	map<string, bool> GetWorldState(); // HashSet<KeyValuePair<string , object>> 
-	map<string, bool> CreateGoalState(); 
-
-	map<string, bool> PlanFailed(map<string, bool> failedPlan);
-	map<string, bool> PlanFound(map<string, bool> goal, priority_queue<Action*>* actions);
-	void PlanAborted(Action* act);
-
-	void ActionFinished();
+private:
+	std::vector<Action> actions;
 };
 
