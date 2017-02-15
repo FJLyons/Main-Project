@@ -26,6 +26,7 @@ GlobalVariables * GlobalVariables::getInstance()
 void GlobalVariables::Init()
 {
 	currentScene = GameStates::SPLASH;
+	createStateNames();
 }
 
 void GlobalVariables::Update()
@@ -40,3 +41,12 @@ void GlobalVariables::Draw(sf::RenderWindow &window)
 
 int GlobalVariables::getCurrentScene(){ return currentScene; }
 void GlobalVariables::setCurrentScene(int current){ currentScene = current; }
+
+void GlobalVariables::createStateNames()
+{
+	stateNames[Search_for_Castle] = "Search for Castle";
+	stateNames[Castle_Sighted] = "Castle Sighted";
+	stateNames[Castle_in_Range] = "Castle in Range";
+	stateNames[Castle_Dead] = "Castle Dead";
+	stateNames[Attack_Castle] = "Attack Castle";
+}

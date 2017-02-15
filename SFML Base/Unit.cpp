@@ -22,6 +22,8 @@ void Unit::Init()
 	m_circleShape.setFillColor(sf::Color::Blue);
 	m_circleShape.setOutlineColor(sf::Color::White);
 	m_circleShape.setOutlineThickness(m_radius / 10.0f);
+
+	CreateActions();
 }
 
 void Unit::Update()
@@ -32,4 +34,35 @@ void Unit::Update()
 void Unit::Draw(sf::RenderWindow &window)
 {
 	window.draw(m_circleShape);
+}
+
+void Unit::CreateActions()
+{
+	actions = new std::vector<Action*>();
+
+	search = new Action(GV->Search_for_Castle, 1);
+	search->SetPreconditions(GV->Castle_Sighted, false);
+	search->SetEffects(GV->Castle_Sighted, true);
+	search->SetEffects(GV->Search_for_Castle, false);
+	actions->push_back(search);
+
+	sighted = new Action(GV->Castle_Sighted, 1);
+	sighted->SetPreconditions(GV->Castle_Sighted, true);
+	sighted->SetEffects(GV->Castle_in_Range, true);
+	actions->push_back(sighted);
+
+	moveTo = new Action(GV->Castle_in_Range, 1);
+	moveTo->SetPreconditions(GV->Castle_in_Range, true);
+	moveTo->SetEffects(GV->Attack_Castle, true);
+	actions->push_back(moveTo);
+
+	attack = new Action(GV->Attack_Castle, 1);
+	attack->SetPreconditions(GV->Attack_Castle, true);
+	attack->SetEffects(GV->Castle_Dead, true);
+	actions->push_back(attack);
+
+	win = new Action(GV->Castle_Dead, 1);
+	win->SetPreconditions(GV->Castle_Dead, true);
+	win->SetEffects(GV->Search_for_Castle, true);
+	actions->push_back(win);
 }

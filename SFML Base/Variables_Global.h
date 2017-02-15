@@ -48,9 +48,14 @@ public:
 
 
 public:
-	enum GOAPStates {
+	enum GOAPState {
+		Search_for_Castle,
 		Castle_Sighted,
+		Castle_in_Range,
 		Castle_Dead,
-		Castle_in_Range
+		Attack_Castle
 	};
+
+	std::map<GOAPState, std::string> stateNames;
+	void createStateNames();
 };

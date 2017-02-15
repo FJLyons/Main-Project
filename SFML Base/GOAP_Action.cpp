@@ -6,7 +6,7 @@ Action::Action()
 {
 }
 
-Action::Action(int name, int cost)
+Action::Action(GlobalVariables::GOAPState name, int cost)
 	: m_name(name)
 	, m_cost(cost)
 {
@@ -16,9 +16,9 @@ Action::~Action()
 {
 }
 
-int Action::GetName()
+std::string Action::GetName()
 {
-	return m_name;
+	return GV->stateNames[m_name];
 }
 
 int Action::GetCost() const
@@ -26,23 +26,23 @@ int Action::GetCost() const
 	return m_cost;
 }
 
-void Action::SetPreconditions(int key, bool value)
+void Action::SetPreconditions(GlobalVariables::GOAPState key, bool value)
 {
 	m_preconditions[key] = value;
 }
 
-void Action::SetEffects(int key, bool value)
+void Action::SetEffects(GlobalVariables::GOAPState key, bool value)
 {
 	m_effects[key] = value;
 }
 
-bool Action::OperableOn(const WorldState& ws) const
+bool Action::OperableOn(const WorldState& worldState) const
 {
 	for (const auto& precondition : m_preconditions)
 	{
 		try
 		{
-			if (ws.m_variables.at(precondition.first) != precondition.second)
+			if (worldState.m_variables.at(precondition.first) != precondition.second)
 			{
 				return false;
 			}

@@ -70,7 +70,7 @@ void Planner::PrintClosedList() const
 	}
 }
 
-std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions)
+std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goal, const std::vector<Action*>& actions)
 {
 	if (start.MeetsGoal(goal))
 	{
@@ -124,9 +124,9 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 		// Check each node REACHABLE from current -- in other words, where can we go from here?
 		for (const auto& potential_action : actions)
 		{
-			if (potential_action.OperableOn(current_node.m_worldState))
+			if (potential_action->OperableOn(current_node.m_worldState))
 			{
-				WorldState best_outcome = potential_action.ActOn(current_node.m_worldState);
+				WorldState best_outcome = potential_action->ActOn(current_node.m_worldState);
 
 				// Skip if already closed
 				if (MemberOfClosed(best_outcome))
@@ -142,10 +142,10 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 					// not a member of open list
 				    // Make a new node, with current as its parent, recording G & H
 					Node found(best_outcome,
-						current_node.m_g + potential_action.GetCost(),
+						current_node.m_g + potential_action->GetCost(),
 						CalculateHeuristic(best_outcome, goal),
 						current_node.m_id,
-						&potential_action);
+						potential_action);
 
 					// Add it to the open list (maintaining sort-order therein)
 					AddToOpenList(std::move(found));
@@ -155,15 +155,15 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 				{ 
 					// already a member of the open list
 				    // check if the current G is better than the recorded G
-					if (current_node.m_g + potential_action.GetCost() < outcome_node->m_g)
+					if (current_node.m_g + potential_action->GetCost() < outcome_node->m_g)
 					{
 						//std::cout << "My path to " << p_outcome_node->ws_ << " using " << potential_action.name() << " (combined cost " << current.g_ + potential_action.cost() << ") is better than existing (cost " <<  p_outcome_node->g_ << "\n";
 						outcome_node->m_parent_id = current_node.m_id;                     // make current its parent
 
-						outcome_node->m_g = current_node.m_g + potential_action.GetCost(); // recalc G & H
+						outcome_node->m_g = current_node.m_g + potential_action->GetCost(); // recalc G & H
 						outcome_node->m_h = CalculateHeuristic(best_outcome, goal);
 
-						outcome_node->action_ = &potential_action;
+						outcome_node->action_ = potential_action;
 
 						// resort open list to account for the new F
 						// sorting likely invalidates the p_outcome_node iterator, but we don't need it anymore

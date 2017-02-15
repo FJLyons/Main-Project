@@ -32,6 +32,6 @@ public:
 	void PrintOpenList() const;
 	void PrintClosedList() const;
 
-	std::vector<Action> Plan(const WorldState& start, const WorldState& goal, const std::vector<Action>& actions);
+	std::vector<Action> Plan(const WorldState& start, const WorldState& goal, const std::vector<Action*>& actions);
 };
 

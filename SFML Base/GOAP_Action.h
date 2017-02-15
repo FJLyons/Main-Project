@@ -5,7 +5,7 @@
 
 #include "Variables_Global.h"
 
-struct WorldState;
+class WorldState;
 
 class Action
 {
@@ -14,22 +14,22 @@ private:
 
 public:
 	Action();
-	Action(int name, int cost);
+	Action(GlobalVariables::GOAPState name, int cost);
 	~Action();
 
 private:
-	int m_name;
+	GlobalVariables::GOAPState m_name;
 	int m_cost;
 
-	std::unordered_map<int, bool> m_preconditions;
-	std::unordered_map<int, bool> m_effects;
+	std::unordered_map<GlobalVariables::GOAPState, bool> m_preconditions;
+	std::unordered_map<GlobalVariables::GOAPState, bool> m_effects;
 
 public:
-	int GetName();
+	std::string GetName();
 	int GetCost() const;
 
-	void SetPreconditions(int key, bool value);
-	void SetEffects(int key, bool value);
+	void SetPreconditions(GlobalVariables::GOAPState key, bool value);
+	void SetEffects(GlobalVariables::GOAPState key, bool value);
 
 	bool OperableOn(const WorldState& worldState) const;
 	WorldState ActOn(const WorldState& worldState) const;

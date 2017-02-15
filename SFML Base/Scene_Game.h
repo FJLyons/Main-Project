@@ -16,6 +16,10 @@
 #include "Structure.h"
 #include "Unit.h"
 
+#include "GOAP_Action.h"
+#include "GOAP_WorldState.h"
+#include "GOAP_Planner.h"
+
 class Game
 {
 private:
@@ -46,5 +50,11 @@ private:
 
 	sf::Font font;
 	sf::Text text;
+
+private:
+	WorldState* goal_win;
+	WorldState* initial_state;
+
+	Planner* AStarSearch;
 };
 

@@ -27,6 +27,8 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow &window);
 
+	std::vector<Action*>* actions;
+
 private:
 	float m_value_attack;
 	float m_speed_attack;
@@ -45,6 +47,13 @@ private:
 	float m_radius;
 
 private:
-	std::vector<Action> actions;
+	void CreateActions();
+
+	// Actions
+	Action* search;
+	Action* sighted;
+	Action* moveTo;
+	Action* attack;
+	Action* win;
 };
 
