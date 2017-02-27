@@ -1,26 +1,26 @@
 #include "GOAP_WorldState.h"
 
-WorldState::WorldState(const std::string name)
+GOAPWorldState::GOAPWorldState(const std::string name)
 	: m_priority(0)
 	, m_name(name)
 {
 }
 
-WorldState::~WorldState()
+GOAPWorldState::~GOAPWorldState()
 {
 }
 
-void WorldState::SetVariable(const int var_id, const bool value)
+void GOAPWorldState::SetVariable(const int var_id, const bool value)
 {
 	m_variables[var_id] = value;
 }
 
-bool WorldState::GetVariable(const int var_id) const
+bool GOAPWorldState::GetVariable(const int var_id) const
 {
 	return m_variables.at(var_id);
 }
 
-bool WorldState::MeetsGoal(const WorldState& goal_state) const
+bool GOAPWorldState::MeetsGoal(const GOAPWorldState& goal_state) const
 {
 	for (const auto& variable : goal_state.m_variables)
 	{
@@ -41,7 +41,7 @@ bool WorldState::MeetsGoal(const WorldState& goal_state) const
 	return true;
 }
 
-int WorldState::DistanceTo(const WorldState& goal_state) const
+int GOAPWorldState::DistanceTo(const GOAPWorldState& goal_state) const
 {
 	int result = 0;
 
@@ -58,7 +58,7 @@ int WorldState::DistanceTo(const WorldState& goal_state) const
 	return result;
 }
 
-bool WorldState::operator==(const WorldState& otherWorld) const
+bool GOAPWorldState::operator==(const GOAPWorldState& otherWorld) const
 {
 	return (m_variables == otherWorld.m_variables);
 }

@@ -1,42 +1,42 @@
 #include "GOAP_Action.h"
 #include "GOAP_WorldState.h"
 
-Action::Action() 
+GOAPAction::GOAPAction()
 	: m_cost(0) 
 {
 }
 
-Action::Action(GlobalVariables::GOAPState name, int cost)
+GOAPAction::GOAPAction(GlobalVariables::GOAPState name, int cost)
 	: m_name(name)
 	, m_cost(cost)
 {
 }
 
-Action::~Action()
+GOAPAction::~GOAPAction()
 {
 }
 
-std::string Action::GetName()
+std::string GOAPAction::GetName()
 {
 	return GV->stateNames[m_name];
 }
 
-int Action::GetCost() const
+int GOAPAction::GetCost() const
 {
 	return m_cost;
 }
 
-void Action::SetPreconditions(GlobalVariables::GOAPState key, bool value)
+void GOAPAction::SetPreconditions(GlobalVariables::GOAPState key, bool value)
 {
 	m_preconditions[key] = value;
 }
 
-void Action::SetEffects(GlobalVariables::GOAPState key, bool value)
+void GOAPAction::SetEffects(GlobalVariables::GOAPState key, bool value)
 {
 	m_effects[key] = value;
 }
 
-bool Action::OperableOn(const WorldState& worldState) const
+bool GOAPAction::OperableOn(const GOAPWorldState& worldState) const
 {
 	for (const auto& precondition : m_preconditions)
 	{
@@ -56,9 +56,9 @@ bool Action::OperableOn(const WorldState& worldState) const
 	return true;
 }
 
-WorldState Action::ActOn(const WorldState& worldState) const
+GOAPWorldState GOAPAction::ActOn(const GOAPWorldState& worldState) const
 {
-	WorldState temp = worldState;
+	GOAPWorldState temp = worldState;
 
 	for (const auto& effect : m_effects)
 	{

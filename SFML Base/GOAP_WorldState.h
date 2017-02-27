@@ -4,11 +4,11 @@
 #include <string>
 #include <map>
 
-class WorldState
+class GOAPWorldState
 {
 public:
-	WorldState(const std::string name = "");
-	~WorldState();
+	GOAPWorldState(const std::string name = "");
+	~GOAPWorldState();
 
 	float m_priority; 
 	std::string m_name; 
@@ -17,18 +17,18 @@ public:
 	void SetVariable(const int var_id, const bool value);
 	bool GetVariable(const int var_id) const;
 
-	bool MeetsGoal(const WorldState& goal_state) const;
+	bool MeetsGoal(const GOAPWorldState& goal_state) const;
 
-	int DistanceTo(const WorldState& goal_state) const;
+	int DistanceTo(const GOAPWorldState& goal_state) const;
 
-	bool operator==(const WorldState& otherWorld) const;
+	bool operator==(const GOAPWorldState& otherWorld) const;
 
 
 	// ?
-	friend std::ostream& operator<<(std::ostream& out, const WorldState& node);
+	friend std::ostream& operator<<(std::ostream& out, const GOAPWorldState& node);
 };
 
-inline std::ostream& operator<<(std::ostream& outStream, const WorldState& worldState) 
+inline std::ostream& operator<<(std::ostream& outStream, const GOAPWorldState& worldState)
 {
 	outStream << "WorldState { ";
 	for (const auto& variable : worldState.m_variables)

@@ -5,17 +5,17 @@
 
 #include "Variables_Global.h"
 
-class WorldState;
+class GOAPWorldState;
 
-class Action
+class GOAPAction
 {
 private:
 	GlobalVariables* GV = GlobalVariables::getInstance();
 
 public:
-	Action();
-	Action(GlobalVariables::GOAPState name, int cost);
-	~Action();
+	GOAPAction();
+	GOAPAction(GlobalVariables::GOAPState name, int cost);
+	~GOAPAction();
 
 private:
 	GlobalVariables::GOAPState m_name;
@@ -31,6 +31,6 @@ public:
 	void SetPreconditions(GlobalVariables::GOAPState key, bool value);
 	void SetEffects(GlobalVariables::GOAPState key, bool value);
 
-	bool OperableOn(const WorldState& worldState) const;
-	WorldState ActOn(const WorldState& worldState) const;
+	bool OperableOn(const GOAPWorldState& worldState) const;
+	GOAPWorldState ActOn(const GOAPWorldState& worldState) const;
 };

@@ -27,7 +27,7 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow &window);
 
-	std::vector<Action*>* actions;
+	std::vector<GOAPAction*>* actions;
 
 private:
 	float m_value_attack;
@@ -47,13 +47,14 @@ private:
 	float m_radius;
 
 private:
-	void CreateActions();
+	void CreateGOAPActions();
+	void CreateMCTSActions();
 
 	// Actions
-	Action* search;
-	Action* sighted;
-	Action* moveTo;
-	Action* attack;
-	Action* win;
+	GOAPAction* search;
+	GOAPAction* sighted;
+	GOAPAction* moveTo;
+	GOAPAction* attack;
+	GOAPAction* win;
 };
 

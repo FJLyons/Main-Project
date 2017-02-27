@@ -30,7 +30,11 @@ public:
 	Game();
 	~Game();
 
+	void InitGOAP();
+	void InitMCTS();
+
 	void Init();
+
 	void Update();
 	void Draw(sf::RenderWindow &window);
 	void input(sf::Event Event);
@@ -52,9 +56,14 @@ private:
 	sf::Text text;
 
 private:
-	WorldState* goal_win;
-	WorldState* initial_state;
+	GOAPWorldState* goap_goal_win;
+	GOAPWorldState* goap_initial_state;
 
-	Planner* AStarSearch;
+	GOAPPlanner* AStarSearch;
+
+	//MCTSWorldState* mcts_goal_win;
+	//MCTSWorldState* mcts_sinitial_state;
+
+	//MCTSPlanner* MCTSSearch;
 };
 

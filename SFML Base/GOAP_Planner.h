@@ -8,30 +8,30 @@
 #include <unordered_map>
 #include <vector>
 
-class Planner
+class GOAPPlanner
 {
 public:
-	Planner();
-	~Planner();
+	GOAPPlanner();
+	~GOAPPlanner();
 
-	std::vector<Node>::iterator MemberOfOpen(const WorldState& worldState);
+	std::vector<GOAPNode>::iterator MemberOfOpen(const GOAPWorldState& worldState);
 
 private:
-	std::vector<Node> m_open;   
-	std::vector<Node> m_closed; 
+	std::vector<GOAPNode> m_open;
+	std::vector<GOAPNode> m_closed;
 
-	int CalculateHeuristic(const WorldState& now, const WorldState& goal) const;
+	int CalculateHeuristic(const GOAPWorldState& now, const GOAPWorldState& goal) const;
 
-	void AddToOpenList(Node&&);
+	void AddToOpenList(GOAPNode&&);
 
-	Node& PopAndClose();
+	GOAPNode& PopAndClose();
 
-	bool MemberOfClosed(const WorldState& ws) const;
+	bool MemberOfClosed(const GOAPWorldState& ws) const;
 
 public:
 	void PrintOpenList() const;
 	void PrintClosedList() const;
 
-	std::vector<Action> Plan(const WorldState& start, const WorldState& goal, const std::vector<Action*>& actions);
+	std::vector<GOAPAction> Plan(const GOAPWorldState& start, const GOAPWorldState& goal, const std::vector<GOAPAction*>& actions);
 };
 

@@ -1,16 +1,16 @@
 #include "GOAP_Node.h"
 #include <iostream>
 
-int Node::last_id_ = 0;
+int GOAPNode::last_id_ = 0;
 
-Node::Node() 
+GOAPNode::GOAPNode()
 	: m_g(0)
 	, m_h(0)
 {
 	m_id = ++last_id_;
 }
 
-Node::Node(const WorldState state, int g, int h, int parent_id, const Action* action) 
+GOAPNode::GOAPNode(const GOAPWorldState state, int g, int h, int parent_id, const GOAPAction* action)
 	: m_worldState(state)
 	, m_g(g)
 	, m_h(h)
@@ -20,11 +20,11 @@ Node::Node(const WorldState state, int g, int h, int parent_id, const Action* ac
 	m_id = ++last_id_;
 }
 
-Node::~Node()
+GOAPNode::~GOAPNode()
 {
 }
 
-bool operator<(const Node& lhs, const Node& rhs)
+bool operator<(const GOAPNode& lhs, const GOAPNode& rhs)
 {
 	return lhs.f() < rhs.f();
 }

@@ -4,27 +4,27 @@
 #include <cassert>
 #include <iostream>
 
-Planner::Planner()
+GOAPPlanner::GOAPPlanner()
 {
 }
 
-Planner::~Planner()
+GOAPPlanner::~GOAPPlanner()
 {
 }
 
-int Planner::CalculateHeuristic(const WorldState& now, const WorldState& goal) const
+int GOAPPlanner::CalculateHeuristic(const GOAPWorldState& now, const GOAPWorldState& goal) const
 {
 	return now.DistanceTo(goal);
 }
 
-void Planner::AddToOpenList(Node&& node)
+void GOAPPlanner::AddToOpenList(GOAPNode&& node)
 {
 	// insert maintaining sort order
 	auto it = std::lower_bound(begin(m_open), end(m_open), node);
 	m_open.emplace(it, std::move(node));
 }
 
-Node& Planner::PopAndClose()
+GOAPNode& GOAPPlanner::PopAndClose()
 {
 	assert(!m_open.empty()); // Break program if false
 
@@ -34,27 +34,27 @@ Node& Planner::PopAndClose()
 	return m_closed.back();
 }
 
-bool Planner::MemberOfClosed(const WorldState& worldState) const
+bool GOAPPlanner::MemberOfClosed(const GOAPWorldState& worldState) const
 {
 	if (std::find_if(
 		begin(m_closed)
 		, end(m_closed)
-		, [&](const Node & node) { return node.m_worldState == worldState; }) == end(m_closed))
+		, [&](const GOAPNode & node) { return node.m_worldState == worldState; }) == end(m_closed))
 	{
 		return false;
 	}
 	return true;
 }
 
-std::vector<Node>::iterator Planner::MemberOfOpen(const WorldState& worldState)
+std::vector<GOAPNode>::iterator GOAPPlanner::MemberOfOpen(const GOAPWorldState& worldState)
 {
 	return std::find_if(
 		begin(m_open)
 		, end(m_open)
-		, [&](const Node & node) { return node.m_worldState == worldState; });
+		, [&](const GOAPNode & node) { return node.m_worldState == worldState; });
 }
 
-void Planner::PrintOpenList() const
+void GOAPPlanner::PrintOpenList() const
 {
 	for (const auto& node : m_open)
 	{
@@ -62,7 +62,7 @@ void Planner::PrintOpenList() const
 	}
 }
 
-void Planner::PrintClosedList() const
+void GOAPPlanner::PrintClosedList() const
 {
 	for (const auto& node : m_closed)
 	{
@@ -70,19 +70,19 @@ void Planner::PrintClosedList() const
 	}
 }
 
-std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goal, const std::vector<Action*>& actions)
+std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOAPWorldState& goal, const std::vector<GOAPAction*>& actions)
 {
 	if (start.MeetsGoal(goal))
 	{
 		//throw std::runtime_error("Planner cannot plan when the start state and the goal state are the same!");
-		return std::vector<Action>();
+		return std::vector<GOAPAction>();
 	}
 
 	// Feasible we'd re-use a planner, so clear out the prior results
 	m_open.clear();
 	m_closed.clear();
 
-	Node starting_node(start, 0, CalculateHeuristic(start, goal), 0, nullptr);
+	GOAPNode starting_node(start, 0, CalculateHeuristic(start, goal), 0, nullptr);
 
 	m_open.push_back(std::move(starting_node));
 
@@ -91,12 +91,12 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 	{
 		// Look for Node with the lowest-F-score on the open list. Switch it to closed,
 		// and hang onto it -- this is our latest node.
-		Node& current_node(PopAndClose());
+		GOAPNode& current_node(PopAndClose());
 
 		// Is our current state the goal state? If so, we've found a path, yay.
 		if (current_node.m_worldState.MeetsGoal(goal))
 		{
-			std::vector<Action> the_plan;
+			std::vector<GOAPAction> the_plan;
 			do 
 			{
 				the_plan.push_back(*current_node.action_);
@@ -104,14 +104,14 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 				auto itr = std::find_if(
 					begin(m_open)
 					, end(m_open)
-					, [&](const Node & node) { return node.m_id == current_node.m_parent_id; });
+					, [&](const GOAPNode & node) { return node.m_id == current_node.m_parent_id; });
 				
 				if (itr == end(m_open))
 				{
 					itr = std::find_if(
 						begin(m_closed)
 						, end(m_closed)
-						, [&](const Node & node) { return node.m_id == current_node.m_parent_id; });
+						, [&](const GOAPNode & node) { return node.m_id == current_node.m_parent_id; });
 				}
 
 				current_node = *itr;
@@ -126,7 +126,7 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 		{
 			if (potential_action->OperableOn(current_node.m_worldState))
 			{
-				WorldState best_outcome = potential_action->ActOn(current_node.m_worldState);
+				GOAPWorldState best_outcome = potential_action->ActOn(current_node.m_worldState);
 
 				// Skip if already closed
 				if (MemberOfClosed(best_outcome))
@@ -141,7 +141,7 @@ std::vector<Action> Planner::Plan(const WorldState& start, const WorldState& goa
 				{
 					// not a member of open list
 				    // Make a new node, with current as its parent, recording G & H
-					Node found(best_outcome,
+					GOAPNode found(best_outcome,
 						current_node.m_g + potential_action->GetCost(),
 						CalculateHeuristic(best_outcome, goal),
 						current_node.m_id,
