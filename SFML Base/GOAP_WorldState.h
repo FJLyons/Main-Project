@@ -25,18 +25,18 @@ public:
 
 
 	// ?
-	friend std::ostream& operator<<(std::ostream& out, const GOAPWorldState& node);
+	//friend std::ostream& operator<<(std::ostream& out, const GOAPWorldState& node);
 };
 
-inline std::ostream& operator<<(std::ostream& outStream, const GOAPWorldState& worldState)
-{
-	outStream << "WorldState { ";
-	for (const auto& variable : worldState.m_variables)
-	{
-		outStream << variable.second << " ";
-	}
-	outStream << "}";
-
-	return outStream;
-}
+//inline std::ostream& operator<<(std::ostream& outStream, const GOAPWorldState& worldState)
+//{
+//	outStream << "WorldState { ";
+//	for (const auto& variable : worldState.m_variables)
+//	{
+//		outStream << variable.second << " ";
+//	}
+//	outStream << "}";
+//
+//	return outStream;
+//}
 

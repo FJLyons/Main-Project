@@ -54,21 +54,21 @@ std::vector<GOAPNode>::iterator GOAPPlanner::MemberOfOpen(const GOAPWorldState& 
 		, [&](const GOAPNode & node) { return node.m_worldState == worldState; });
 }
 
-void GOAPPlanner::PrintOpenList() const
-{
-	for (const auto& node : m_open)
-	{
-		std::cout << node << std::endl;
-	}
-}
+//void GOAPPlanner::PrintOpenList() const
+//{
+//	for (const auto& node : m_open)
+//	{
+//		std::cout << node << std::endl;
+//	}
+//}
 
-void GOAPPlanner::PrintClosedList() const
-{
-	for (const auto& node : m_closed)
-	{
-		std::cout << node << std::endl;
-	}
-}
+//void GOAPPlanner::PrintClosedList() const
+//{
+//	for (const auto& node : m_closed)
+//	{
+//		std::cout << node << std::endl;
+//	}
+//}
 
 std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOAPWorldState& goal, const std::vector<GOAPAction*>& actions)
 {
@@ -78,7 +78,7 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 		return std::vector<GOAPAction>();
 	}
 
-	// Feasible we'd re-use a planner, so clear out the prior results
+	// clear previous results
 	m_open.clear();
 	m_closed.clear();
 
@@ -89,11 +89,10 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 	//int iters = 0;
 	while (m_open.size() > 0) 
 	{
-		// Look for Node with the lowest-F-score on the open list. Switch it to closed,
-		// and hang onto it -- this is our latest node.
+		// Look for Node with the lowest-F-score in the open list. Add it to closed as latest node.
 		GOAPNode& current_node(PopAndClose());
 
-		// Is our current state the goal state? If so, we've found a path, yay.
+		// Is path found
 		if (current_node.m_worldState.MeetsGoal(goal))
 		{
 			std::vector<GOAPAction> the_plan;
@@ -121,7 +120,7 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 			return the_plan;
 		}
 
-		// Check each node REACHABLE from current -- in other words, where can we go from here?
+		// Check each node connected to current
 		for (const auto& potential_action : actions)
 		{
 			if (potential_action->OperableOn(current_node.m_worldState))
@@ -134,7 +133,7 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 					continue;
 				}
 
-				// Look for a Node with this WorldState on the open list.
+				// Look for a Node with this WorldState in the open list.
 				auto outcome_node = MemberOfOpen(best_outcome);
 
 				if (outcome_node == end(m_open))
@@ -147,7 +146,7 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 						current_node.m_id,
 						potential_action);
 
-					// Add it to the open list (maintaining sort-order therein)
+					// Add it to the open list and maintaining sort-order
 					AddToOpenList(std::move(found));
 				}
 
@@ -157,7 +156,6 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 				    // check if the current G is better than the recorded G
 					if (current_node.m_g + potential_action->GetCost() < outcome_node->m_g)
 					{
-						//std::cout << "My path to " << p_outcome_node->ws_ << " using " << potential_action.name() << " (combined cost " << current.g_ + potential_action.cost() << ") is better than existing (cost " <<  p_outcome_node->g_ << "\n";
 						outcome_node->m_parent_id = current_node.m_id;                     // make current its parent
 
 						outcome_node->m_g = current_node.m_g + potential_action->GetCost(); // recalc G & H
@@ -166,7 +164,6 @@ std::vector<GOAPAction> GOAPPlanner::Plan(const GOAPWorldState& start, const GOA
 						outcome_node->action_ = potential_action;
 
 						// resort open list to account for the new F
-						// sorting likely invalidates the p_outcome_node iterator, but we don't need it anymore
 						std::sort(begin(m_open), end(m_open));
 					}
 				}

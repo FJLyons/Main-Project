@@ -20,6 +20,10 @@
 #include "GOAP_WorldState.h"
 #include "GOAP_Planner.h"
 
+#include "MCTS_Action.h"
+#include "MCTS_WorldState.h"
+#include "MCTS_Planner.h"
+
 class Game
 {
 private:
@@ -61,9 +65,9 @@ private:
 
 	GOAPPlanner* AStarSearch;
 
-	//MCTSWorldState* mcts_goal_win;
-	//MCTSWorldState* mcts_sinitial_state;
+	MCTSWorldState* mcts_goal_win;
+	MCTSWorldState* mcts_initial_state;
 
-	//MCTSPlanner* MCTSSearch;
+	MCTSPlanner* UCTSearch;
 };
 

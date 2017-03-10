@@ -6,7 +6,7 @@ GOAPAction::GOAPAction()
 {
 }
 
-GOAPAction::GOAPAction(GlobalVariables::GOAPState name, int cost)
+GOAPAction::GOAPAction(GlobalVariables::ActionState name, int cost)
 	: m_name(name)
 	, m_cost(cost)
 {
@@ -26,12 +26,12 @@ int GOAPAction::GetCost() const
 	return m_cost;
 }
 
-void GOAPAction::SetPreconditions(GlobalVariables::GOAPState key, bool value)
+void GOAPAction::SetPreconditions(GlobalVariables::ActionState key, bool value)
 {
 	m_preconditions[key] = value;
 }
 
-void GOAPAction::SetEffects(GlobalVariables::GOAPState key, bool value)
+void GOAPAction::SetEffects(GlobalVariables::ActionState key, bool value)
 {
 	m_effects[key] = value;
 }
