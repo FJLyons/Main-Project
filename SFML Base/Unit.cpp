@@ -23,7 +23,8 @@ void Unit::Init()
 	m_circleShape.setOutlineColor(sf::Color::White);
 	m_circleShape.setOutlineThickness(m_radius / 10.0f);
 
-	CreateGOAPActions();
+	CreateGOAPActions(); 
+	CreateMCTSActions();
 }
 
 void Unit::Update()
@@ -69,5 +70,11 @@ void Unit::CreateGOAPActions()
 
 void Unit::CreateMCTSActions()
 {
+	m_actions = new std::vector<MCTSAction*>();
+	
+	m_search = new MCTSAction();
+	m_search->AddChild(GV->Search_for_Castle, true);
+	m_actions->push_back(m_search);
 
+	m_action = m_search;
 }

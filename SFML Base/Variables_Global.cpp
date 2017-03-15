@@ -47,6 +47,6 @@ void GlobalVariables::createStateNames()
 	stateNames[Search_for_Castle] = "Search for Castle";
 	stateNames[Castle_Sighted] = "Castle Sighted";
 	stateNames[Castle_in_Range] = "Castle in Range";
-	stateNames[Castle_Dead] = "Castle Dead";
 	stateNames[Attack_Castle] = "Attack Castle";
+	stateNames[Castle_Dead] = "Castle Dead";
 }

@@ -12,6 +12,7 @@
 using namespace std;
 
 #include "GOAP_Action.h"
+#include "MCTS_Action.h"
 
 
 class Unit
@@ -28,6 +29,8 @@ public:
 	void Draw(sf::RenderWindow &window);
 
 	std::vector<GOAPAction*>* actions;
+	std::vector<MCTSAction*>* m_actions;
+	MCTSAction* m_action;
 
 private:
 	float m_value_attack;
@@ -56,5 +59,11 @@ private:
 	GOAPAction* moveTo;
 	GOAPAction* attack;
 	GOAPAction* win;
+
+	MCTSAction* m_search;
+	MCTSAction* m_sighted;
+	MCTSAction* m_moveTo;
+	MCTSAction* m_attack;
+	MCTSAction* m_win;
 };
 

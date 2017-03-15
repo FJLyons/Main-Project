@@ -40,6 +40,7 @@ void Game::InitGOAP()
 		{
 			std::cout << rit->GetName() << std::endl;
 		}
+		std::cout << "\n";
 	}
 	catch (const std::exception&)
 	{
@@ -52,17 +53,25 @@ void Game::InitMCTS()
 	mcts_initial_state = new MCTSWorldState();
 
 	UCTSearch = new MCTSPlanner();
+
+	MCTSAction next_action;
+	std::cout << "MCTS Path = \n";
+
 	try
 	{
-		MCTSAction next_action = UCTSearch->Plan(*mcts_initial_state);
-		std::cout << "MCTS Path = \n";
+		while (next_action.action != GV->ActionState::Castle_Dead)
+		{
+			next_action = UCTSearch->Plan(*mcts_initial_state);
 
-		mcts_initial_state->ApplyAction(next_action);
+			mcts_initial_state->ApplyAction(next_action);
 
-		//for (std::vector<MCTSAction>::reverse_iterator rit = the_plan.rbegin(); rit != the_plan.rend(); ++rit)
-		//{
-			//std::cout << rit->GetName() << std::endl;
-		//}
+			mcts_initial_state = new MCTSWorldState(next_action);
+
+			// mcts_initial_state = next_action.next_state;
+
+			std::cout << next_action.GetName() << std::endl;
+		}
+		std::cout << "\n";
 	}
 	catch (const std::exception&)
 	{

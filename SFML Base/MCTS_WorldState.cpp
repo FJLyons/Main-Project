@@ -4,11 +4,25 @@
 
 MCTSWorldState::MCTSWorldState() :
 	m_isTerminal(false),
-	m_winner(0)
+	m_winner(0),
+	m_previousAction(MCTSAction())
 {
-	for (int i = 0; i < GlobalVariables::ActionState::ENUMSIZE - 1; i++)
+	// Add available actions
+	for (int i = 0; i < m_previousAction.m_children.size(); i++)
 	{
-		m_moves.push_back(GlobalVariables::ActionState(i));
+		m_moves.push_back(m_previousAction.m_children[i]);
+	}
+}
+
+MCTSWorldState::MCTSWorldState(MCTSAction action) :
+	m_isTerminal(false),
+	m_winner(0),
+	m_previousAction(action)
+{
+	// Add available actions
+	for (int i = 0; i < m_previousAction.m_children.size(); i++)
+	{
+		m_moves.push_back(m_previousAction.m_children[i]);
 	}
 }
 
@@ -21,7 +35,8 @@ MCTSWorldState::~MCTSWorldState()
 MCTSWorldState::MCTSWorldState(const MCTSWorldState & other) :
 	m_isTerminal(other.m_isTerminal),
 	m_winner(other.m_winner),
-	m_moves(other.m_moves)
+	m_moves(other.m_moves),
+	m_previousAction(other.m_previousAction)
 {
 }
 
@@ -30,6 +45,7 @@ MCTSWorldState & MCTSWorldState::operator=(const MCTSWorldState & other)
 	this->m_winner = other.m_winner;
 	this->m_isTerminal = other.m_isTerminal;
 	this->m_moves = other.m_moves;
+	this->m_previousAction = other.m_previousAction;
 	return *this;
 }
 
@@ -46,55 +62,41 @@ void MCTSWorldState::ApplyAction(const MCTSAction & action)
 		return;
 	}
 
-	// End states?
-
-	// Test
-	//for (int i = 0; i < 5; i++)
-	//{
-	//	if (m_moves[i] == m_moves[GlobalVariables::ActionState::Castle_Dead])
-	//	{
-	//		int debug = 0;
-	//	}
-	//}
-
-	for (int i = 0; i < GlobalVariables::ActionState::ENUMSIZE - 1; i++)
+	// List available moves
+	if (m_moves.size() < action.m_children.size())
 	{
-		// if winning combo found,
-		if (m_moves[i] < -1 &&
-			action.action == GlobalVariables::ActionState::Castle_Dead)
-		{
-			m_winner = m_moves[i];
-			m_isTerminal = true;
-			return;
-		}
+		m_moves = action.m_children;
+		//for (int k = action.m_children.size() - m_moves.size(); k < action.m_children.size(); k++)
+		//{
+		//	m_moves.push_back(action.m_children[k]);
+		//}
 	}
 
-	//// if no winning combo found
-	//// find number of empty tiles
-	//int num_empty = 0;
-
-	//for (int i = 0; i < GlobalVariables::ActionState::ENUMSIZE - 1; i++)
-	//{
-	//	if (m_moves[i] == -1)
-	//	{
-	//		num_empty++;
-	//	}
-	//}
-
-	//if (num_empty == 0)
-	//{
-	//	m_winner = -1;
-	//	m_isTerminal = true;
-	//}
+	for (int i = 0; i < m_moves.size(); i++)
+	{
+		for (int j = 0; j < action.m_children.size(); j++)
+		{
+			// if winning combo found,
+			if (m_moves[i] == action.m_children[j])
+			{
+				if (action.m_winner[j] == true)
+				{
+					m_winner = m_moves[i];
+					m_isTerminal = true;
+					return;
+				}
+			}
+		}
+	}
 }
 
 void MCTSWorldState::GetActions(std::vector<MCTSAction>& actions) const
 {
 	actions.clear();
 
-	for (int i = 0; i < GlobalVariables::ActionState::ENUMSIZE - 1; i++)
+	for (int i = 0; i < m_moves.size(); i++)
 	{
-		actions.push_back(GlobalVariables::ActionState(i));
+		actions.push_back(m_moves[i]);
 	}
 }
 
@@ -113,11 +115,22 @@ bool MCTSWorldState::GetRandomAction(MCTSAction & action) const
 	return true;
 }
 
-const float MCTSWorldState::Evaluate() const
+const float MCTSWorldState::Evaluate(MCTSAction action)
 {
-	return 1; // if good move
-	return 0; // if bad move
-	return 0.5f; // if draw
+	if (action.action > m_previousAction.action)
+	{
+		m_previousAction = action;
+		return 1; // if good move
+	}
+	else if (action.action == m_previousAction.action)
+	{
+		return 0.5f; // if draw
+	}
+	else
+	{
+		m_previousAction = action;
+		return 0; // if bad move
+	}
 }
 
 void MCTSWorldState::reset()

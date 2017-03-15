@@ -5,16 +5,28 @@
 class MCTSAction
 {
 public:
-	MCTSAction(GlobalVariables::ActionState name = GlobalVariables::ActionState::Search_for_Castle);
+	MCTSAction();
+	MCTSAction(GlobalVariables::ActionState name);
 	~MCTSAction();
 
 	GlobalVariables::ActionState action;
 
+	std::string GetName();
+
+	void AddChild(GlobalVariables::ActionState child, bool isTerminal);
+
+	std::vector<GlobalVariables::ActionState> m_children;
+	std::vector<bool> m_winner;
+
+	MCTSAction& operator = (const MCTSAction& other);
+
+	void SetUpAction();
+
 	// MCTS Actions should be all unit actions
 
-	// MCTS can search all actions at once
+	// MCTS can search all AVAILABLE actions at once
 
-	// Each action can lead to full range of actions again
+	// Each action can lead to AVAILABLE actions again
 
 	// Highest value is calculated by MCTS
 

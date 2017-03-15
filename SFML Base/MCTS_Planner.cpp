@@ -36,7 +36,9 @@ MCTSNode * MCTSPlanner::GetBestUCTChild(MCTSNode * node, float uct_k) const
 		MCTSNode* child = node->GetChild(i);
 
 		float uct_exploitation = (float)child->GetValue() / (child->GetNumVisits() + FLT_EPSILON);
+
 		float uct_exploration = sqrt(log((float)node->GetNumVisits() + 1) / (child->GetNumVisits() + FLT_EPSILON));
+
 		float uct_score = uct_exploitation + uct_k * uct_exploration;
 
 		if (uct_score > best_utc_score)
@@ -105,11 +107,11 @@ MCTSAction MCTSPlanner::Plan(MCTSWorldState& current_state, std::vector<MCTSWorl
 
 		MCTSWorldState state(node->GetState());
 
+		MCTSAction action;
+
 		// 3. SIMULATE (if not terminal)
 		if (!node->IsTerminal())
 		{
-			MCTSAction action;
-
 			for (int i = 0; i < m_simulationDepth; i++)
 			{
 				if (state.IsTerminal()) 
@@ -129,7 +131,7 @@ MCTSAction MCTSPlanner::Plan(MCTSWorldState& current_state, std::vector<MCTSWorl
 		}
 
 		// get rewards vector for all agents
-		float rewards = state.Evaluate();
+		float rewards = state.Evaluate(action);
 
 		// add to history
 		if (explored_states)

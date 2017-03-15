@@ -9,6 +9,7 @@ class MCTSWorldState
 {
 public:
 	MCTSWorldState();
+	MCTSWorldState(MCTSAction action);
 	~MCTSWorldState();
 
 	// copy and assignment operators should perform a DEEP clone of the given state
@@ -28,12 +29,14 @@ public:
 	bool GetRandomAction(MCTSAction& action) const;
 
 	// evaluate this state and return a vector of rewards (for each agent)
-	const float Evaluate() const;
+	const float Evaluate(MCTSAction action);
 
 private:
 	bool m_isTerminal;
 	int m_winner;
-	std::vector<int> m_moves;
+	std::vector<GlobalVariables::ActionState> m_moves;
+
+	MCTSAction m_previousAction;
 
 	void reset();
 };
