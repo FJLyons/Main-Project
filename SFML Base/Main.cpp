@@ -42,14 +42,13 @@ int main()
 	srand(time(0));
 
 	// Get Global Variables
-	GV = GlobalVariables::getInstance();
+	GV = GlobalVariables::GetInstance();
 
 	// Create the main window 
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 0;
 
-	sf::Vector2f screenSize = GV->screenSize;
-	sf::RenderWindow window(sf::VideoMode(screenSize.x, screenSize.y), "GOAP vs. MCTS", sf::Style::Default, settings);
+	sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "GOAP vs. MCTS", sf::Style::Default, settings);
 
 	GV->windowReference = &window;
 
@@ -60,6 +59,8 @@ int main()
 	// Classes
 	sceneManager = new SceneManager();
 
+	// Clock
+
 	// Start game loop 
 	while (window.isOpen())
 	{
@@ -67,27 +68,20 @@ int main()
 		sf::Event Event;
 		while (window.pollEvent(Event))
 		{
-			InputManager::getInstance()->Update(Event);
+			InputManager::GetInstance()->Update(Event);
 
 			// Close Window
 			if (Event.type == Event.Closed) { window.close(); }
 			if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Escape) { window.close(); }
 
-			// Update input
-			if (GV->getCurrentScene() == GV->SPLASH) { sceneManager->splashScreen->input(Event); }
-			else if (GV->getCurrentScene() == GV->MAINMENU) { sceneManager->mainMenu->input(Event); }
-			else if (GV->getCurrentScene() == GV->GAME) { sceneManager->game->input(Event); }
-			else if (GV->getCurrentScene() == GV->LOAD) { sceneManager->load->input(Event); }
-			else if (GV->getCurrentScene() == GV->OPTIONS) { sceneManager->optionsMenu->input(Event); }
-			else if (GV->getCurrentScene() == GV->INSTRUCTIONS) { sceneManager->instructions->input(Event); }
+			sceneManager->Input(Event);
 		}
 
 		//prepare frame
 		window.clear();
 
 		// Update and Draw
-		sceneManager->Update();
-		sceneManager->Draw(window);
+		sceneManager->Process();
 
 		// Finally, display rendered frame on screen 
 		window.display();

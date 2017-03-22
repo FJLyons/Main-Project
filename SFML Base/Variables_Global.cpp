@@ -13,7 +13,7 @@ GlobalVariables::~GlobalVariables()
 {
 }
 
-GlobalVariables * GlobalVariables::getInstance()
+GlobalVariables * GlobalVariables::GetInstance()
 {
 	if (globalVariablesInstance == nullptr)
 	{
@@ -25,7 +25,7 @@ GlobalVariables * GlobalVariables::getInstance()
 
 void GlobalVariables::Init()
 {
-	currentScene = GameStates::SPLASH;
+	currentScene = GameScenes::SPLASH;
 	createStateNames();
 }
 

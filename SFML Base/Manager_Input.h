@@ -8,7 +8,7 @@
 class InputManager
 {
 public:
-	static InputManager * getInstance();
+	static InputManager * GetInstance();
 private:
 	static InputManager * inputManagerInstance;
 

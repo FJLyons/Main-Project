@@ -34,7 +34,7 @@ public:
 private:
 	bool m_isTerminal;
 	int m_winner;
-	std::vector<GlobalVariables::ActionState> m_moves;
+	std::vector<ActionState> m_moves;
 
 	MCTSAction m_previousAction;
 

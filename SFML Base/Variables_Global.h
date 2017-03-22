@@ -5,10 +5,13 @@
 
 #include <iostream>
 
+#include "Variables_Const.h"
+#include "Variables_Enum.h"
+
 class GlobalVariables
 {
 public:
-	static GlobalVariables * getInstance();
+	static GlobalVariables * GetInstance();
 private:
 	static GlobalVariables * globalVariablesInstance;
 
@@ -23,20 +26,6 @@ public:
 	int getCurrentScene();
 	void setCurrentScene(int current);
 
-	enum GameStates { 
-		CONTINUE, 
-		GAME, 
-		LOAD, 
-		OPTIONS, 
-		INSTRUCTIONS, 
-		PAUSE, 
-		GAMEOVER, 
-		MAINMENU, 
-		SPLASH 
-	};
-
-	sf::Vector2f screenSize = sf::Vector2f(1920, 1080);
-	sf::Vector2f screenSizeHalf = sf::Vector2f(screenSize.x / 2, screenSize.y / 2);
 	sf::RenderWindow* windowReference;
 
 private:
@@ -48,16 +37,6 @@ public:
 
 
 public:
-	enum ActionState {
-		Search_for_Castle,
-		Castle_Sighted,
-		Castle_in_Range,
-		Castle_Dead,
-		Attack_Castle,
-
-		ENUMSIZE
-	};
-
 	std::map<ActionState, std::string> stateNames;
 	void createStateNames();
 };

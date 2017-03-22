@@ -12,6 +12,8 @@
 #include "Variables_Global.h"
 #include "Manager_Input.h"
 
+#include "Scene.h"
+
 #include "Map.h"
 #include "Structure.h"
 #include "Unit.h"
@@ -24,11 +26,11 @@
 #include "MCTS_WorldState.h"
 #include "MCTS_Planner.h"
 
-class Game
+class Game : public Scene
 {
 private:
-	GlobalVariables* GV = GlobalVariables::getInstance();
-	InputManager* inputManager = InputManager::getInstance();
+	GlobalVariables* GV = GlobalVariables::GetInstance();
+	InputManager* inputManager = InputManager::GetInstance();
 
 public:
 	Game();
@@ -37,22 +39,24 @@ public:
 	void InitGOAP();
 	void InitMCTS();
 
-	void Init();
-
-	void Update();
-	void Draw(sf::RenderWindow &window);
-	void input(sf::Event Event);
+	void Init() override;
+	int Update() override;
+	void Draw(sf::RenderWindow &window) override;
+	void Input(sf::Event Event) override;
+	bool IsRunning() override;
 
 private:
 	Map* map = new Map();
 
 	Structure* castle = new Structure();
 
-	Unit* leftAgent = new Unit();
-	Unit* RightAgent = new Unit();
+	Unit* leftAgent = new Unit(0);
+	Unit* rightAgent = new Unit(1);
+
+
+	sf::Clock clock;
 
 private:
-	sf::Vector2f screenSize = GV->screenSize;
 
 	void controller(sf::Event Event);
 
@@ -65,9 +69,15 @@ private:
 
 	GOAPPlanner* AStarSearch;
 
-	MCTSWorldState* mcts_goal_win;
+	void GOAP();
+
+	std::vector<GOAPAction> GOAP_Plan;
+
+	MCTSAction next_action;
 	MCTSWorldState* mcts_initial_state;
 
 	MCTSPlanner* UCTSearch;
+
+	void MCTS();
 };
 

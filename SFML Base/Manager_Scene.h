@@ -12,8 +12,8 @@ using namespace std;
 
 // Custom Classes
 #include "Variables_Global.h"
-#include "Manager_Input.h"
 
+#include "Scene.h"
 #include "Scene_Splash.h"
 #include "Scene_Main_Menu.h"
 #include "Scene_Game.h"
@@ -24,25 +24,19 @@ using namespace std;
 
 class SceneManager
 {
-private:
-	GlobalVariables* GV = GlobalVariables::getInstance();
-	InputManager* inputManager = InputManager::getInstance();
 public:
 	SceneManager();
 	~SceneManager();
 
 	void Init();
-	void Update();
-	void Draw(sf::RenderWindow &window);
-
-	SplashScreen* splashScreen;
-	MainMenu* mainMenu;
-	Game* game;
-	LoadScreen* load;
-	OptionsMenu* optionsMenu;
-	InstructionsScreen* instructions;
+	void Process();
+	void Input(sf::Event evt);
+	void SwapScene();
 
 private:
-	sf::Vector2f screenSize = GV->screenSize;
+	std::vector<Scene*>	m_currentScene;
+	int	m_runningScene;
+	int	m_previousScene;		
+	bool m_running;
 };
 

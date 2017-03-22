@@ -11,7 +11,7 @@ InputManager::~InputManager()
 {
 }
 
-InputManager * InputManager::getInstance()
+InputManager * InputManager::GetInstance()
 {
 	if (inputManagerInstance == nullptr)
 	{

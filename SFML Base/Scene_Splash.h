@@ -1,35 +1,20 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
+#include "Scene.h"
 
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
-
-#include "Variables_Global.h"
-#include "Manager_Input.h"
-
-#define FULL_COLOUR 255
-
-class SplashScreen
+class SplashScreen : public Scene
 {
-private:
-	GlobalVariables* GV = GlobalVariables::getInstance();
-	InputManager* inputManager = InputManager::getInstance();
-
 public:
 	SplashScreen();
 	~SplashScreen();
 
-	void Init();
-	void Update();
-	void Draw(sf::RenderWindow &window);
-	void input(sf::Event Event);	
+	void Init() override;
+	int Update() override;
+	void Draw(sf::RenderWindow &window) override;
+	void Input(sf::Event Event) override;
+	bool IsRunning() override;
 
 private:
-	sf::Vector2f screenSize = GV->screenSize;
-
 	void print(const std::string &str, int delay_time);
 	void fade();
 

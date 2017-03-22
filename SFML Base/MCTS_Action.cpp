@@ -2,11 +2,11 @@
 
 MCTSAction::MCTSAction()
 {
-	AddChild(GlobalVariables::ActionState::Search_for_Castle, false);
-	action = GlobalVariables::ActionState::Search_for_Castle;
+	AddChild(ActionState::Search_for_Castle, false);
+	action = ActionState::Search_for_Castle;
 }
 
-MCTSAction::MCTSAction(GlobalVariables::ActionState name) :
+MCTSAction::MCTSAction(ActionState name) :
 	action(name)
 {
 	SetUpAction();
@@ -18,10 +18,10 @@ MCTSAction::~MCTSAction()
 
 std::string MCTSAction::GetName()
 {
-	return GlobalVariables::getInstance()->stateNames[action];
+	return GlobalVariables::GetInstance()->stateNames[action];
 }
 
-void MCTSAction::AddChild(GlobalVariables::ActionState child, bool isTerminal)
+void MCTSAction::AddChild(ActionState child, bool isTerminal)
 {
 	m_children.push_back(child);
 	m_winner.push_back(isTerminal);
@@ -37,27 +37,27 @@ MCTSAction & MCTSAction::operator=(const MCTSAction & other)
 
 void MCTSAction::SetUpAction()
 {
-	if (action == GlobalVariables::ActionState::Search_for_Castle)
+	if (action == ActionState::Search_for_Castle)
 	{
-		AddChild(GlobalVariables::ActionState::Search_for_Castle, false);
-		AddChild(GlobalVariables::ActionState::Castle_Sighted, true);
+		AddChild(ActionState::Search_for_Castle, false);
+		AddChild(ActionState::Castle_Sighted, true);
 	}
 
-	else if (action == GlobalVariables::ActionState::Castle_Sighted)
+	else if (action == ActionState::Castle_Sighted)
 	{
-		AddChild(GlobalVariables::ActionState::Castle_Sighted, false);
-		AddChild(GlobalVariables::ActionState::Castle_in_Range, true);
+		AddChild(ActionState::Castle_Sighted, false);
+		AddChild(ActionState::Castle_in_Range, true);
 	}
 
-	else if (action == GlobalVariables::ActionState::Castle_in_Range)
+	else if (action == ActionState::Castle_in_Range)
 	{
-		AddChild(GlobalVariables::ActionState::Castle_in_Range, false);
-		AddChild(GlobalVariables::ActionState::Attack_Castle, true);
+		AddChild(ActionState::Castle_in_Range, false);
+		AddChild(ActionState::Attack_Castle, true);
 	}
 
-	else if (action == GlobalVariables::ActionState::Attack_Castle)
+	else if (action == ActionState::Attack_Castle)
 	{
-		AddChild(GlobalVariables::ActionState::Attack_Castle, false);
-		AddChild(GlobalVariables::ActionState::Castle_Dead, true);
+		AddChild(ActionState::Attack_Castle, false);
+		AddChild(ActionState::Castle_Dead, true);
 	}
 }

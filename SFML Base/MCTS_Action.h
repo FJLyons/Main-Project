@@ -6,16 +6,16 @@ class MCTSAction
 {
 public:
 	MCTSAction();
-	MCTSAction(GlobalVariables::ActionState name);
+	MCTSAction(ActionState name);
 	~MCTSAction();
 
-	GlobalVariables::ActionState action;
+	ActionState action;
 
 	std::string GetName();
 
-	void AddChild(GlobalVariables::ActionState child, bool isTerminal);
+	void AddChild(ActionState child, bool isTerminal);
 
-	std::vector<GlobalVariables::ActionState> m_children;
+	std::vector<ActionState> m_children;
 	std::vector<bool> m_winner;
 
 	MCTSAction& operator = (const MCTSAction& other);

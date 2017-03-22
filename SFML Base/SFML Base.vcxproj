@@ -159,6 +159,7 @@
     <ClCompile Include="GOAP_Node.cpp" />
     <ClCompile Include="GOAP_Planner.cpp" />
     <ClCompile Include="GOAP_WorldState.cpp" />
+    <ClCompile Include="Manager_Collision.cpp" />
     <ClCompile Include="Manager_Input.cpp" />
     <ClCompile Include="Manager_Scene.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="MCTS_Node.cpp" />
     <ClCompile Include="MCTS_Planner.cpp" />
     <ClCompile Include="MCTS_WorldState.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Instructions.cpp" />
     <ClCompile Include="Scene_Load.cpp" />
@@ -175,13 +177,14 @@
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="Variables_Global.cpp" />
     <ClCompile Include="Scene_Options.cpp" />
-    <ClCompile Include="Scene_Menu.cpp" />
+    <ClCompile Include="Scene_Splash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GOAP_Action.h" />
     <ClInclude Include="GOAP_Node.h" />
     <ClInclude Include="GOAP_Planner.h" />
     <ClInclude Include="GOAP_WorldState.h" />
+    <ClInclude Include="Manager_Collision.h" />
     <ClInclude Include="Manager_Input.h" />
     <ClInclude Include="Manager_Scene.h" />
     <ClInclude Include="Map.h" />
@@ -189,6 +192,7 @@
     <ClInclude Include="MCTS_Node.h" />
     <ClInclude Include="MCTS_Planner.h" />
     <ClInclude Include="MCTS_WorldState.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Instructions.h" />
     <ClInclude Include="Scene_Load.h" />
@@ -196,6 +200,8 @@
     <ClInclude Include="Scene_Main_Menu.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="Variables_Const.h" />
+    <ClInclude Include="Variables_Enum.h" />
     <ClInclude Include="Variables_Global.h" />
     <ClInclude Include="Scene_Options.h" />
     <ClInclude Include="Scene_Splash.h" />

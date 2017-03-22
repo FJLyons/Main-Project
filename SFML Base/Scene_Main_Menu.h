@@ -1,33 +1,22 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
-
-#include <iostream>
-
-#include "Variables_Global.h"
-#include "Manager_Input.h"
+#include "Scene.h"
 
 #define MENU_INDEX 5
 
-class MainMenu
+class MainMenu : public Scene
 {
-private:
-	GlobalVariables* GV = GlobalVariables::getInstance();
-	InputManager* inputManager = InputManager::getInstance();
-
 public:
 	MainMenu();
 	~MainMenu();
 
-	void Init();
-	void Update();
-	void Draw(sf::RenderWindow &window);
-	void input(sf::Event Event);
+	void Init() override;
+	int Update() override;
+	void Draw(sf::RenderWindow &window) override;
+	void Input(sf::Event Event) override;
+	bool IsRunning() override;
 
 private:
-	sf::Vector2f screenSize = GV->screenSize;
-
 	void swapScreen();
 
 	void moveUp();

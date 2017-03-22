@@ -20,8 +20,8 @@ void MainMenu::Init()
 	logoTexture.setSmooth(true);
 	logoSprite.setTexture(logoTexture);
 	logoSprite.setScale(scaleFactor);
-	logoSprite.setOrigin(sf::Vector2f(screenSize.x / 2, screenSize.y / 2));
-	logoSprite.setPosition(sf::Vector2f(screenSize.x / 2, screenSize.y / 2));
+	logoSprite.setOrigin(sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+	logoSprite.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
 
 	// Index
 	selectedItemIndex = 0;
@@ -38,17 +38,20 @@ void MainMenu::Init()
 	for (int i = 0; i < MENU_INDEX; i++)
 	{
 		text[i].setFont(font);
-		text[i].setPosition((screenSize.x / 2) - text[i].getLocalBounds().width / 3.5f, (screenSize.y / 2) + (48.0f * i) - text[i].getLocalBounds().height / 2.0f);
+		text[i].setPosition((SCREEN_WIDTH / 2) - text[i].getLocalBounds().width / 3.5f, (SCREEN_HEIGHT / 2) + (48.0f * i) - text[i].getLocalBounds().height / 2.0f);
 		text[i].setCharacterSize(18);
 		text[i].setColor(sf::Color::White);
 	}
 
 	text[0].setColor(sf::Color::Red);
+
+	_swapScene = GameScenes::MAINMENU;
 }
 
-void MainMenu::Update()
+int MainMenu::Update()
 {
 
+	return (int)_swapScene;
 }
 
 void MainMenu::Draw(sf::RenderWindow &window)
@@ -61,12 +64,12 @@ void MainMenu::Draw(sf::RenderWindow &window)
 	}
 }
 
-void MainMenu::input(sf::Event Event)
+void MainMenu::Input(sf::Event Event)
 {
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace)) 
 	{ 
 		std::cout << "Back Space" << std::endl;
-		GV->setCurrentScene(GV->SPLASH);
+		_swapScene = GameScenes::SPLASH;
 	}
 
 	if (inputManager->KeyPressed(sf::Keyboard::Return))
@@ -87,30 +90,36 @@ void MainMenu::input(sf::Event Event)
 	}
 }
 
+bool MainMenu::IsRunning()
+{
+	//if (_swapScene != GameScenes::MAINMENU) { _swapScene = GameScenes::MAINMENU; }
+	return _running;
+}
+
 void MainMenu::swapScreen()
 {
 	if (getPressedItem() == GAME) 
 	{
-		GV->setCurrentScene(GV->GAME);
 		std::cout << "New Game" << std::endl;
+		_swapScene = GameScenes::GAME;
 	}
 
 	else if (getPressedItem() == LOAD) 
 	{
-		GV->setCurrentScene(GV->LOAD);
 		std::cout << "Load Game" << std::endl;
+		_swapScene = GameScenes::LOAD;
 	}
 
 	else if (getPressedItem() == OPTIONS) 
 	{
-		GV->setCurrentScene(GV->OPTIONS);
 		std::cout << "Options Menu" << std::endl;
+		_swapScene = GameScenes::OPTIONS;
 	}
 
 	else if (getPressedItem() == INSTRUCTIONS) 
 	{
-		GV->setCurrentScene(GV->INSTRUCTIONS);
 		std::cout << "Instrctions Screen" << std::endl;
+		_swapScene = GameScenes::INSTRUCTIONS;
 	}
 
 	if (getPressedItem() == QUIT)

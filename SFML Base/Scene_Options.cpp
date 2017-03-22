@@ -18,8 +18,8 @@ void OptionsMenu::Init()
 	logoTexture.setSmooth(true);
 	logoSprite.setTexture(logoTexture);
 	logoSprite.setScale(scaleFactor);
-	logoSprite.setOrigin(sf::Vector2f(screenSize.x / 2, screenSize.y / 2));
-	logoSprite.setPosition(sf::Vector2f(screenSize.x / 2, screenSize.y / 2));
+	logoSprite.setOrigin(sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
+	logoSprite.setPosition(sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
 
 	// Index
 	selectedItemIndex = 0;
@@ -33,25 +33,28 @@ void OptionsMenu::Init()
 	{
 		text[i].setString("test");
 		text[i].setFont(font);
-		text[i].setPosition((screenSize.x / 2) - text[i].getLocalBounds().width / 3.5f, (screenSize.y / 2) + (48.0f * i) - text[i].getLocalBounds().height / 2.0f);
+		text[i].setPosition((SCREEN_WIDTH / 2) - text[i].getLocalBounds().width / 3.5f, (SCREEN_HEIGHT / 2) + (48.0f * i) - text[i].getLocalBounds().height / 2.0f);
 		text[i].setCharacterSize(18);
 		text[i].setColor(sf::Color::White);
 	}
 
 	text[0].setColor(sf::Color::Red);
+
+	_swapScene = GameScenes::OPTIONS;
 }
 
-void OptionsMenu::Update()
+int OptionsMenu::Update()
 {
 
+	return (int)_swapScene;
 }
 
-void OptionsMenu::input(sf::Event Event)
+void OptionsMenu::Input(sf::Event Event)
 {
 	if (inputManager->KeyPressed(sf::Keyboard::BackSpace))
 	{
 		std::cout << "Back Space" << std::endl;
-		GV->setCurrentScene(GV->MAINMENU);
+		_swapScene = GameScenes::MAINMENU;
 	}
 
 	if (inputManager->KeyPressed(sf::Keyboard::Return))
@@ -70,6 +73,11 @@ void OptionsMenu::input(sf::Event Event)
 		std::cout << "Down" << std::endl;
 		moveDown();
 	}
+}
+
+bool OptionsMenu::IsRunning()
+{
+	return _running;
 }
 
 void OptionsMenu::Draw(sf::RenderWindow &window)

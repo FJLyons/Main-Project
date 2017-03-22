@@ -9,7 +9,7 @@
 class Map
 {
 private:
-	GlobalVariables* GV = GlobalVariables::getInstance();
+	GlobalVariables* GV = GlobalVariables::GetInstance();
 
 public:
 	Map();
@@ -20,10 +20,6 @@ public:
 	void Draw(sf::RenderWindow &window);
 
 private:
-	sf::Vector2f screenSize = GV->screenSize;
-	sf::Vector2f screenSizeHalf = GV->screenSizeHalf;
-
 	sf::RectangleShape m_rectangleShape;
-
 };
 
